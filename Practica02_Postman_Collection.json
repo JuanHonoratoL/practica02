@@ -1,0 +1,672 @@
+{
+  "info": {
+    "_postman_id": "a1234567-89ab-cdef-0123-456789abcdef",
+    "name": "Práctica 02 - API Cursos (HATEOAS Nivel 3 + JWT)",
+    "description": "Colección completa con las 12 pruebas obligatorias de la Práctica 02: Autenticación JWT, Autorización por roles (ADMIN y CONSULTA) y Nivel 3 de Richardson (HATEOAS) sobre el recurso Cursos.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "adminToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "consultaToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "cursoId",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "0. Registro Usuario Rol CONSULTA (/api/v1/auth/registro)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Código de estado 201 Created o 200 OK', function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+              "});",
+              "var jsonData = pm.response.json();",
+              "if (jsonData.access_token) {",
+              "    pm.collectionVariables.set('consultaToken', jsonData.access_token);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"consulta@ipn.mx\",\n  \"password\": \"consulta123\",\n  \"name\": \"Estudiante Consulta\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/auth/registro",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "registro"
+          ]
+        },
+        "description": "Registra un nuevo usuario que recibe por defecto el rol CONSULTA y guarda el token en {{consultaToken}}."
+      }
+    },
+    {
+      "name": "Prueba 1. Iniciar sesión con credenciales correctas (ADMIN)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Se obtiene un JWT válido (200 OK)', function () {",
+              "    pm.response.to.have.status(200);",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.access_token).to.be.a('string').and.not.empty;",
+              "    pm.collectionVariables.set('adminToken', jsonData.access_token);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"admin@ipn.mx\",\n  \"password\": \"admin123\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "login"
+          ]
+        },
+        "description": "Prueba 1: Iniciar sesión con las credenciales del usuario ADMIN pre-cargado. Resultado esperado: Se obtiene un JWT válido."
+      }
+    },
+    {
+      "name": "Prueba 2. Iniciar sesión con contraseña incorrecta",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Se rechaza la autenticación (401 Unauthorized)', function () {",
+              "    pm.response.to.have.status(401);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"admin@ipn.mx\",\n  \"password\": \"contrasenaIncorrecta\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "login"
+          ]
+        },
+        "description": "Prueba 2: Iniciar sesión con contraseña incorrecta. Resultado esperado: 401 Unauthorized."
+      }
+    },
+    {
+      "name": "Prueba 3. Consultar un recurso sin token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Se rechaza el acceso sin token (401 Unauthorized)', function () {",
+              "    pm.response.to.have.status(401);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/cursos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "cursos"
+          ]
+        },
+        "description": "Prueba 3: Consultar un endpoint protegido sin cabecera Authorization. Resultado esperado: 401 Unauthorized."
+      }
+    },
+    {
+      "name": "Prueba 4. Consultar un recurso con token válido",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Se obtiene la respuesta correspondiente (200 OK)', function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{consultaToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/cursos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "cursos"
+          ]
+        },
+        "description": "Prueba 4: Consultar el listado de cursos con un token válido. Resultado esperado: 200 OK."
+      }
+    },
+    {
+      "name": "Prueba 5. Enviar un token manipulado o expirado",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Se rechaza la solicitud con token manipulado (401 Unauthorized)', function () {",
+              "    pm.response.to.have.status(401);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBpcG4ubXgifQ.firmaManipuladaInvalida123",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/cursos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "cursos"
+          ]
+        },
+        "description": "Prueba 5: Enviar un JWT con firma manipulada o expirado. Resultado esperado: 401 Unauthorized."
+      }
+    },
+    {
+      "name": "Prueba 6. Registrar un recurso con rol ADMIN",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Se registra correctamente (201 Created)', function () {",
+              "    pm.response.to.have.status(201);",
+              "    var jsonData = pm.response.json();",
+              "    if (jsonData.datos && jsonData.datos.id) {",
+              "        pm.collectionVariables.set('cursoId', jsonData.datos.id);",
+              "    }",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{adminToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Desarrollo Backend con Spring Boot\",\n  \"duracionHoras\": 40,\n  \"nivel\": \"medio\",\n  \"precio\": 1499.90,\n  \"fechaInicio\": \"2026-11-15\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/cursos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "cursos"
+          ]
+        },
+        "description": "Prueba 6: Registrar un curso enviando el JWT de un usuario con rol ADMIN. Resultado esperado: 201 Created con enlaces HATEOAS."
+      }
+    },
+    {
+      "name": "Prueba 7. Registrar un recurso con rol CONSULTA",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Se deniega la operación (403 Forbidden)', function () {",
+              "    pm.response.to.have.status(403);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{consultaToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Curso No Autorizado\",\n  \"duracionHoras\": 20,\n  \"nivel\": \"básico\",\n  \"precio\": 500.00,\n  \"fechaInicio\": \"2026-12-01\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/cursos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "cursos"
+          ]
+        },
+        "description": "Prueba 7: Intentar registrar un curso con un token de rol CONSULTA. Resultado esperado: 403 Forbidden."
+      }
+    },
+    {
+      "name": "Prueba 8. Consultar un recurso individual (HATEOAS)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('La respuesta incluye enlaces HATEOAS (200 OK)', function () {",
+              "    pm.response.to.have.status(200);",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.datos.links).to.be.an('array').that.is.not.empty;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{consultaToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/cursos/{{cursoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "cursos",
+            "{{cursoId}}"
+          ]
+        },
+        "description": "Prueba 8: Consultar un curso específico por ID y verificar los enlaces HATEOAS (self, update, delete, cursos, buscar)."
+      }
+    },
+    {
+      "name": "Prueba 9. Navegar de una colección/búsqueda a un recurso individual",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Búsqueda por nombre devuelve colección con enlaces HATEOAS', function () {",
+              "    pm.response.to.have.status(200);",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.datos.links).to.be.an('array').that.is.not.empty;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{consultaToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/cursos/buscar?nombre=Spring",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "cursos",
+            "buscar"
+          ],
+          "query": [
+            {
+              "key": "nombre",
+              "value": "Spring"
+            }
+          ]
+        },
+        "description": "Prueba 9: Buscar cursos por nombre y obtener los enlaces HATEOAS de la colección y de cada elemento individual para continuar la navegación."
+      }
+    },
+    {
+      "name": "Prueba 10A. Actualizar un recurso con rol ADMIN",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Actualización exitosa con rol ADMIN (200 OK)', function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{adminToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Desarrollo Backend con Spring Boot y JWT\",\n  \"duracionHoras\": 45,\n  \"nivel\": \"avanzado\",\n  \"precio\": 1699.90,\n  \"fechaInicio\": \"2026-11-20\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/cursos/{{cursoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "cursos",
+            "{{cursoId}}"
+          ]
+        },
+        "description": "Prueba 10A: Actualizar un curso con rol ADMIN. Resultado esperado: 200 OK."
+      }
+    },
+    {
+      "name": "Prueba 10B. Eliminar un recurso con rol ADMIN",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Eliminación exitosa con rol ADMIN (200 OK)', function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{adminToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/cursos/{{cursoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "cursos",
+            "{{cursoId}}"
+          ]
+        },
+        "description": "Prueba 10B: Eliminar un curso con rol ADMIN. Resultado esperado: 200 OK."
+      }
+    },
+    {
+      "name": "Prueba 11. Consultar un identificador inexistente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Se devuelve 404 Not Found', function () {",
+              "    pm.response.to.have.status(404);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{consultaToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/cursos/99999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "cursos",
+            "99999"
+          ]
+        },
+        "description": "Prueba 11: Consultar un ID que no existe. Resultado esperado: 404 Not Found."
+      }
+    },
+    {
+      "name": "Prueba 12. Enviar datos inválidos al registrar un recurso",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Se devuelve 400 Bad Request', function () {",
+              "    pm.response.to.have.status(400);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{adminToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"\",\n  \"duracionHoras\": -5,\n  \"nivel\": \"\",\n  \"precio\": -100\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/cursos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "cursos"
+          ]
+        },
+        "description": "Prueba 12: Enviar datos vacíos o negativos al crear un curso. Resultado esperado: 400 Bad Request con detalle de validación."
+      }
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagrama de Arquitectura — Práctica 02</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 24px;
+      background-color: #0b0f19;
+      color: #f1f5f9;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 24px;
+      color: #38bdf8;
+    }
+    p {
+      margin: 0;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+    .container {
+      width: 100%;
+      max-width: 1350px;
+      background: #0f172a;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      padding: 16px;
+      box-sizing: border-box;
+      border: 1px solid #1e293b;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+    .actions {
+      margin-top: 16px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    a.btn {
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    a.btn:hover {
+      background: #1d4ed8;
+    }
+    a.btn-secondary {
+      background: #334155;
+    }
+    a.btn-secondary:hover {
+      background: #475569;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Diagrama de Arquitectura de Software — Práctica 02</h1>
+    <p>API REST Cursos con HATEOAS (Nivel 3 Richardson) + Spring Security &amp; JWT</p>
+  </header>
+  <div class="container">
+    <img src="./arquitectura.svg" alt="Diagrama de Arquitectura">
+  </div>
+  <div class="actions">
+    <a href="./arquitectura.png" download class="btn">Descargar PNG (Alta Resolución)</a>
+    <a href="./arquitectura.svg" download class="btn btn-secondary">Descargar SVG (Vectorial)</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1350 1120" width="1350" height="1120" style="background:#0f172a; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <!-- Filtros de Sombra y Brillo -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+    <filter id="glow-cyan" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#38bdf8" flood-opacity="0.5"/>
+    </filter>
+
+    <!-- Gradientes -->
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="50%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    
+    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <linearGradient id="securityGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e1e38" />
+      <stop offset="100%" stop-color="#131326" />
+    </linearGradient>
+
+    <linearGradient id="ctrlGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0c2538" />
+      <stop offset="100%" stop-color="#081826" />
+    </linearGradient>
+
+    <linearGradient id="srvGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0b2e25" />
+      <stop offset="100%" stop-color="#061c16" />
+    </linearGradient>
+
+    <linearGradient id="repoGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#28163b" />
+      <stop offset="100%" stop-color="#190e26" />
+    </linearGradient>
+
+    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1f2937" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+
+    <!-- Marcadores de Flechas -->
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#c084fc"/>
+    </marker>
+    <marker id="arrow-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+  </defs>
+
+  <!-- ==================== ENCABEZADO ==================== -->
+  <rect x="40" y="25" width="1270" height="70" rx="12" fill="url(#headerGrad)" filter="url(#shadow)"/>
+  <text x="675" y="58" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle" letter-spacing="0.5">DIAGRAMA DE ARQUITECTURA DE SOFTWARE — PRÁCTICA 02</text>
+  <text x="675" y="80" font-size="13" font-weight="normal" fill="#e0f2fe" text-anchor="middle">API REST Cursos con HATEOAS (Nivel 3 Richardson) + Spring Security &amp; JWT (Roles ADMIN / CONSULTA)</text>
+
+  <!-- ==================== CAPA 0: CLIENTE ==================== -->
+  <g transform="translate(40, 115)">
+    <rect x="0" y="0" width="1270" height="70" rx="10" fill="url(#clientGrad)" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="25" y="32" font-size="14" font-weight="bold" fill="#94a3b8">CLIENTES REST</text>
+    <text x="25" y="50" font-size="11" fill="#64748b">Consumo HTTP / JSON</text>
+    
+    <!-- Bloques de Clientes -->
+    <rect x="220" y="15" width="220" height="40" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2"/>
+    <text x="330" y="40" font-size="13" font-weight="bold" fill="#38bdf8" text-anchor="middle">Postman Collection</text>
+    
+    <rect x="470" y="15" width="220" height="40" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2"/>
+    <text x="580" y="40" font-size="13" font-weight="bold" fill="#38bdf8" text-anchor="middle">Swagger UI (OpenAPI 3)</text>
+    
+    <rect x="720" y="15" width="240" height="40" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2"/>
+    <text x="840" y="40" font-size="13" font-weight="bold" fill="#38bdf8" text-anchor="middle">Frontend / SPA / Mobile</text>
+
+    <!-- Indicador de Cabecera -->
+    <rect x="990" y="15" width="250" height="40" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1.2" stroke-dasharray="3 3"/>
+    <text x="1115" y="33" font-size="11" font-weight="bold" fill="#fbbf24" text-anchor="middle">Cabecera de Petición:</text>
+    <text x="1115" y="48" font-size="10" font-family="monospace" fill="#fef3c7" text-anchor="middle">Authorization: Bearer &lt;token&gt;</text>
+  </g>
+
+  <!-- Flecha Cliente -> Capa Seguridad -->
+  <line x1="675" y1="185" x2="675" y2="215" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+  <text x="735" y="204" font-size="11" font-weight="bold" fill="#38bdf8">Solicitudes HTTP</text>
+
+  <!-- ==================== CAPA 1: COMPONENTES DE SEGURIDAD ==================== -->
+  <g transform="translate(40, 218)">
+    <rect x="0" y="0" width="1270" height="205" rx="12" fill="url(#securityGrad)" stroke="#6366f1" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="1270" height="30" rx="12" fill="#312e81"/>
+    <text x="20" y="21" font-size="14" font-weight="bold" fill="#e0e7ff">1. CAPA DE SEGURIDAD (Spring Security &amp; JWT)</text>
+    <text x="1250" y="20" font-size="11" font-weight="bold" fill="#a5b4fc" text-anchor="end">SessionCreationPolicy.STATELESS</text>
+
+    <!-- Subcomponentes de Seguridad -->
+    <!-- 1.1 SecurityFilterChain -->
+    <rect x="20" y="42" width="290" height="145" rx="8" fill="#1e1b4b" stroke="#818cf8" stroke-width="1.2"/>
+    <text x="35" y="65" font-size="13" font-weight="bold" fill="#c7d2fe">SecurityFilterChain</text>
+    <text x="35" y="80" font-size="10" fill="#a5b4fc">(SecurityConfig)</text>
+    <line x1="35" y1="88" x2="295" y2="88" stroke="#4338ca" stroke-width="1"/>
+    <text x="35" y="105" font-size="11" fill="#e0e7ff">• CSRF / Session: Deshabilitados</text>
+    <text x="35" y="123" font-size="11" fill="#e0e7ff">• Públicos: <tspan fill="#34d399">/api/v1/auth/**, swagger</tspan></text>
+    <text x="35" y="141" font-size="11" fill="#e0e7ff">• GET: <tspan fill="#38bdf8">ADMIN, CONSULTA</tspan></text>
+    <text x="35" y="159" font-size="11" fill="#e0e7ff">• POST, PUT, DELETE: <tspan fill="#f43f5e">ADMIN</tspan></text>
+    <text x="35" y="177" font-size="11" fill="#e0e7ff">• Error 401 &amp; 403 en formato JSON</text>
+
+    <!-- 1.2 JwtAuthenticationFilter -->
+    <rect x="330" y="42" width="300" height="145" rx="8" fill="#1e1b4b" stroke="#818cf8" stroke-width="1.2"/>
+    <text x="345" y="65" font-size="13" font-weight="bold" fill="#c7d2fe">JwtAuthenticationFilter</text>
+    <text x="345" y="80" font-size="10" fill="#a5b4fc">(OncePerRequestFilter)</text>
+    <line x1="345" y1="88" x2="615" y2="88" stroke="#4338ca" stroke-width="1"/>
+    <text x="345" y="105" font-size="11" fill="#e0e7ff">• Intercepta cada petición entrante</text>
+    <text x="345" y="123" font-size="11" fill="#e0e7ff">• Extrae token Bearer de cabecera</text>
+    <text x="345" y="141" font-size="11" fill="#e0e7ff">• Valida token con JwtService</text>
+    <text x="345" y="159" font-size="11" fill="#e0e7ff">• Verifica validez en TokenRepository</text>
+    <text x="345" y="177" font-size="11" fill="#e0e7ff">• Inyecta identidad a SecurityContext</text>
+
+    <!-- 1.3 JwtService -->
+    <rect x="650" y="42" width="280" height="145" rx="8" fill="#1e1b4b" stroke="#818cf8" stroke-width="1.2"/>
+    <text x="665" y="65" font-size="13" font-weight="bold" fill="#c7d2fe">JwtService</text>
+    <text x="665" y="80" font-size="10" fill="#a5b4fc">(Firma y Criptografía HMAC-SHA256)</text>
+    <line x1="665" y1="88" x2="915" y2="88" stroke="#4338ca" stroke-width="1"/>
+    <text x="665" y="105" font-size="11" fill="#e0e7ff">• <tspan font-family="monospace">generateToken(user)</tspan></text>
+    <text x="665" y="123" font-size="11" fill="#e0e7ff">• <tspan font-family="monospace">extractUsername(token)</tspan></text>
+    <text x="665" y="141" font-size="11" fill="#e0e7ff">• <tspan font-family="monospace">isTokenValid(token, user)</tspan></text>
+    <text x="665" y="159" font-size="11" fill="#e0e7ff">• Claims: <tspan fill="#fbbf24">name, role, subject, exp</tspan></text>
+    <text x="665" y="177" font-size="11" fill="#e0e7ff">• Secreto configurable (HMAC-SHA)</text>
+
+    <!-- 1.4 Proveedores y Autenticación -->
+    <rect x="950" y="42" width="300" height="145" rx="8" fill="#1e1b4b" stroke="#818cf8" stroke-width="1.2"/>
+    <text x="965" y="65" font-size="13" font-weight="bold" fill="#c7d2fe">AppConfig / AuthProvider</text>
+    <text x="965" y="80" font-size="10" fill="#a5b4fc">(Infraestructura de Credenciales)</text>
+    <line x1="965" y1="88" x2="1235" y2="88" stroke="#4338ca" stroke-width="1"/>
+    <text x="965" y="105" font-size="11" fill="#e0e7ff">• <tspan font-weight="bold">DaoAuthenticationProvider</tspan></text>
+    <text x="965" y="123" font-size="11" fill="#e0e7ff">• <tspan font-weight="bold">BCryptPasswordEncoder</tspan> (hash seguro)</text>
+    <text x="965" y="141" font-size="11" fill="#e0e7ff">• <tspan font-weight="bold">UserDetailsService</tspan> (consulta User)</text>
+    <text x="965" y="159" font-size="11" fill="#e0e7ff">• <tspan font-weight="bold">CommandLineRunner</tspan> precarga ADMIN:</text>
+    <text x="965" y="177" font-size="10" font-family="monospace" fill="#34d399">admin@ipn.mx / admin123 (ADMIN)</text>
+  </g>
+
+  <!-- Flechas Seguridad -> Controladores -->
+  <!-- Ruta Pública a Auth -->
+  <path d="M 250 423 L 250 455" fill="none" stroke="#34d399" stroke-width="2.2" marker-end="url(#arrow-emerald)"/>
+  <text x="260" y="443" font-size="10" font-weight="bold" fill="#34d399">Público (/auth)</text>
+
+  <!-- Ruta Protegida a Cursos -->
+  <path d="M 720 423 L 720 455" fill="none" stroke="#38bdf8" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
+  <text x="730" y="443" font-size="10" font-weight="bold" fill="#38bdf8">Protegido (Token Validado + Roles)</text>
+
+  <!-- ==================== CAPA 2: CONTROLADORES ==================== -->
+  <g transform="translate(40, 458)">
+    <rect x="0" y="0" width="1270" height="175" rx="12" fill="url(#ctrlGrad)" stroke="#0284c7" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="1270" height="30" rx="12" fill="#0369a1"/>
+    <text x="20" y="21" font-size="14" font-weight="bold" fill="#ffffff">2. CAPA DE CONTROLADORES REST (Endpoints, DTOs &amp; HATEOAS)</text>
+    <text x="1250" y="20" font-size="11" font-weight="bold" fill="#bae6fd" text-anchor="end">Nivel 3 de Richardson</text>
+
+    <!-- 2.1 AuthController -->
+    <rect x="20" y="40" width="370" height="120" rx="8" fill="#082f49" stroke="#38bdf8" stroke-width="1.2"/>
+    <text x="35" y="62" font-size="13" font-weight="bold" fill="#7dd3fc">AuthController</text>
+    <text x="35" y="76" font-size="10" font-family="monospace" fill="#38bdf8">@RequestMapping("/api/v1/auth")</text>
+    <line x1="35" y1="84" x2="375" y2="84" stroke="#075985" stroke-width="1"/>
+    <text x="35" y="103" font-size="11" fill="#e0f2fe">• <tspan font-weight="bold">POST /registro</tspan> (RegisterRequest) → Rol CONSULTA</text>
+    <text x="35" y="122" font-size="11" fill="#e0f2fe">• <tspan font-weight="bold">POST /login</tspan> (LoginRequest) → TokenResponse</text>
+    <text x="35" y="141" font-size="10" fill="#94a3b8">• Responde Token JWT sin exponer password</text>
+
+    <!-- 2.2 CursoController (HATEOAS) -->
+    <rect x="410" y="40" width="530" height="120" rx="8" fill="#082f49" stroke="#38bdf8" stroke-width="1.2"/>
+    <text x="425" y="62" font-size="13" font-weight="bold" fill="#7dd3fc">CursoController (HATEOAS)</text>
+    <text x="425" y="76" font-size="10" font-family="monospace" fill="#38bdf8">@RequestMapping("/api/v1/cursos")</text>
+    <line x1="425" y1="84" x2="925" y2="84" stroke="#075985" stroke-width="1"/>
+    <text x="425" y="103" font-size="11" fill="#e0f2fe">• <tspan font-weight="bold">GET /</tspan> y <tspan font-weight="bold">GET /{id}</tspan> y <tspan font-weight="bold">GET /buscar?nombre=</tspan> [ADMIN, CONSULTA]</text>
+    <text x="425" y="122" font-size="11" fill="#e0f2fe">• <tspan font-weight="bold">POST /</tspan>, <tspan font-weight="bold">PUT /{id}</tspan>, <tspan font-weight="bold">DELETE /{id}</tspan> [Solo ADMIN]</text>
+    <text x="425" y="141" font-size="11" fill="#34d399">• Enlaces Dinámicos: <tspan fill="#e0f2fe">self, cursos, buscar (Todos) | update, delete, crear (Solo ADMIN)</tspan></text>
+
+    <!-- 2.3 GlobalExceptionHandler -->
+    <rect x="960" y="40" width="290" height="120" rx="8" fill="#082f49" stroke="#38bdf8" stroke-width="1.2"/>
+    <text x="975" y="62" font-size="13" font-weight="bold" fill="#7dd3fc">GlobalExceptionHandler</text>
+    <text x="975" y="76" font-size="10" font-family="monospace" fill="#38bdf8">@RestControllerAdvice</text>
+    <line x1="975" y1="84" x2="1235" y2="84" stroke="#075985" stroke-width="1"/>
+    <text x="975" y="103" font-size="11" fill="#e0f2fe">• 400 Bad Request (Validación / Parámetros)</text>
+    <text x="975" y="122" font-size="11" fill="#e0f2fe">• 401 Unauthorized / 403 Forbidden</text>
+    <text x="975" y="141" font-size="11" fill="#e0f2fe">• 404 Not Found / 409 Conflicto / 500</text>
+  </g>
+
+  <!-- Flechas Controladores -> Servicios -->
+  <line x1="205" y1="633" x2="205" y2="665" stroke="#34d399" stroke-width="2.2" marker-end="url(#arrow-emerald)"/>
+  <line x1="675" y1="633" x2="675" y2="665" stroke="#34d399" stroke-width="2.2" marker-end="url(#arrow-emerald)"/>
+
+  <!-- ==================== CAPA 3: SERVICIOS ==================== -->
+  <g transform="translate(40, 668)">
+    <rect x="0" y="0" width="1270" height="145" rx="12" fill="url(#srvGrad)" stroke="#059669" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="1270" height="30" rx="12" fill="#047857"/>
+    <text x="20" y="21" font-size="14" font-weight="bold" fill="#ffffff">3. CAPA DE SERVICIOS (Lógica de Negocio &amp; Autorización Metódica)</text>
+    <text x="1250" y="20" font-size="11" font-weight="bold" fill="#a7f3d0" text-anchor="end">@PreAuthorize Security</text>
+
+    <!-- 3.1 AuthService -->
+    <rect x="20" y="40" width="530" height="90" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="1.2"/>
+    <text x="35" y="62" font-size="13" font-weight="bold" fill="#a7f3d0">AuthService</text>
+    <line x1="35" y1="70" x2="535" y2="70" stroke="#065f46" stroke-width="1"/>
+    <text x="35" y="88" font-size="11" fill="#ecfdf5">• <tspan font-weight="bold">register()</tspan>: Verifica email único, codifica clave con BCrypt, asigna rol CONSULTA</text>
+    <text x="35" y="106" font-size="11" fill="#ecfdf5">• <tspan font-weight="bold">login()</tspan>: AuthenticationManager.authenticate(), revoca tokens previos, guarda nuevo Token</text>
+    <text x="35" y="122" font-size="11" fill="#ecfdf5">• <tspan font-weight="bold">saveUserToken()</tspan>: Persiste token BEARER activo en tabla tokens</text>
+
+    <!-- 3.2 CursoServiceImpl -->
+    <rect x="570" y="40" width="680" height="90" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="1.2"/>
+    <text x="585" y="62" font-size="13" font-weight="bold" fill="#a7f3d0">CursoServiceImpl (implements CursoService)</text>
+    <line x1="585" y1="70" x2="1235" y2="70" stroke="#065f46" stroke-width="1"/>
+    <text x="585" y="88" font-size="11" fill="#ecfdf5">• <tspan font-weight="bold">@PreAuthorize("hasRole('ADMIN')")</tspan> en save(), update(), delete()</text>
+    <text x="585" y="106" font-size="11" fill="#ecfdf5">• <tspan font-weight="bold">@PreAuthorize("hasAnyRole('ADMIN', 'CONSULTA')")</tspan> en findAll(), findById(), findByNombre()</text>
+    <text x="585" y="122" font-size="11" fill="#ecfdf5">• Valida duplicados (409 Conflicto), IDs positivos (400) y no encontrados (404)</text>
+  </g>
+
+  <!-- Flechas Servicios -> Repositorios -->
+  <line x1="285" y1="813" x2="285" y2="845" stroke="#c084fc" stroke-width="2.2" marker-end="url(#arrow-purple)"/>
+  <line x1="880" y1="813" x2="880" y2="845" stroke="#c084fc" stroke-width="2.2" marker-end="url(#arrow-purple)"/>
+
+  <!-- ==================== CAPA 4: REPOSITORIOS ==================== -->
+  <g transform="translate(40, 848)">
+    <rect x="0" y="0" width="1270" height="115" rx="12" fill="url(#repoGrad)" stroke="#9333ea" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="1270" height="30" rx="12" fill="#7e22ce"/>
+    <text x="20" y="21" font-size="14" font-weight="bold" fill="#ffffff">4. CAPA DE REPOSITORIOS (Spring Data JPA)</text>
+    <text x="1250" y="20" font-size="11" font-weight="bold" fill="#f3e8ff" text-anchor="end">Hibernate ORM / Dialecto MySQL</text>
+
+    <!-- 4.1 UserRepository -->
+    <rect x="20" y="40" width="370" height="63" rx="8" fill="#3b0764" stroke="#c084fc" stroke-width="1.2"/>
+    <text x="35" y="60" font-size="12" font-weight="bold" fill="#f3e8ff">UserRepository</text>
+    <text x="35" y="76" font-size="10" font-family="monospace" fill="#c084fc">JpaRepository&lt;User, Long&gt;</text>
+    <text x="35" y="93" font-size="11" fill="#fae8ff">• findByEmail(String email)</text>
+
+    <!-- 4.2 TokenRepository -->
+    <rect x="410" y="40" width="410" height="63" rx="8" fill="#3b0764" stroke="#c084fc" stroke-width="1.2"/>
+    <text x="425" y="60" font-size="12" font-weight="bold" fill="#f3e8ff">TokenRepository</text>
+    <text x="425" y="76" font-size="10" font-family="monospace" fill="#c084fc">JpaRepository&lt;Token, Long&gt;</text>
+    <text x="425" y="93" font-size="11" fill="#fae8ff">• findByToken() / findAllValidTokenByUser()</text>
+
+    <!-- 4.3 CursoRepository -->
+    <rect x="840" y="40" width="410" height="63" rx="8" fill="#3b0764" stroke="#c084fc" stroke-width="1.2"/>
+    <text x="855" y="60" font-size="12" font-weight="bold" fill="#f3e8ff">CursoRepository</text>
+    <text x="855" y="76" font-size="10" font-family="monospace" fill="#c084fc">JpaRepository&lt;CursoEntity, Long&gt;</text>
+    <text x="855" y="93" font-size="11" fill="#fae8ff">• findByNombre() / findByNombreContainingIgnoreCase()</text>
+  </g>
+
+  <!-- Flechas Repositorios -> BD -->
+  <line x1="675" y1="963" x2="675" y2="990" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+  <text x="735" y="980" font-size="11" font-weight="bold" fill="#fbbf24">Consultas SQL / JDBC</text>
+
+  <!-- ==================== CAPA 5: BASE DE DATOS ==================== -->
+  <g transform="translate(40, 995)">
+    <rect x="0" y="0" width="1270" height="100" rx="12" fill="url(#dbGrad)" stroke="#f59e0b" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="1270" height="26" rx="12" fill="#b45309"/>
+    <text x="20" y="18" font-size="13" font-weight="bold" fill="#ffffff">5. BASE DE DATOS RELACIONAL (MySQL / MariaDB / Aiven Cloud)</text>
+    <text x="1250" y="18" font-size="11" font-weight="bold" fill="#fef3c7" text-anchor="end">database.sql</text>
+
+    <!-- Tabla users -->
+    <rect x="20" y="36" width="370" height="52" rx="6" fill="#182234" stroke="#d97706" stroke-width="1"/>
+    <text x="35" y="54" font-size="12" font-weight="bold" fill="#fde68a">Tabla: users</text>
+    <text x="35" y="73" font-size="10" font-family="monospace" fill="#f3f4f6">id (PK), name, email (UQ), password, role (ADMIN/CONSULTA)</text>
+
+    <!-- Tabla tokens -->
+    <rect x="410" y="36" width="410" height="52" rx="6" fill="#182234" stroke="#d97706" stroke-width="1"/>
+    <text x="425" y="54" font-size="12" font-weight="bold" fill="#fde68a">Tabla: tokens</text>
+    <text x="425" y="73" font-size="10" font-family="monospace" fill="#f3f4f6">id (PK), token (UQ), token_type, revoked, expired, user_id (FK)</text>
+
+    <!-- Tabla cursos -->
+    <rect x="840" y="36" width="410" height="52" rx="6" fill="#182234" stroke="#d97706" stroke-width="1"/>
+    <text x="855" y="54" font-size="12" font-weight="bold" fill="#fde68a">Tabla: cursos</text>
+    <text x="855" y="73" font-size="10" font-family="monospace" fill="#f3f4f6">id (PK), nombre, duracion_horas, nivel, precio, fecha_inicio</text>
+  </g>
+</svg>
